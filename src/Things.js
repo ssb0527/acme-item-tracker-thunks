@@ -28,10 +28,9 @@ const Things = ({ things, users, deleteThing, increment, updateThing })=> {
                     }
                   </select>
                 </div>
-                <button onClick={ ()=> deleteThing(thing)}>x</button>
                 <button onClick={()=> increment(thing, -1)}>-</button>
                 <button onClick={()=> increment(thing, 1)}>+</button>
-                
+                <button onClick={ ()=> deleteThing(thing)}>x</button>
               </li>
             );
           })

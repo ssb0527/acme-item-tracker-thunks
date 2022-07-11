@@ -27,6 +27,9 @@ const usersReducer = (state = [], action)=> {
   if(action.type === 'CREATE_USER'){
     return [...state, action.user ]; 
   }
+  if(action.type === 'UPDATE_USER'){
+    return state.map(user => user.id !== action.user.id ? user : action.user);
+  }
   return state;
 };
 
@@ -89,10 +92,16 @@ const removeThingFromUser = (thing) => {
     dispatch({ type: 'UPDATE_THING', thing: updatedThing});
   }
 };
+const updateUser = (user) => {
+  return async(dispatch)=> {
+    user = (await axios.put(`/api/users/${user.id}`, user)).data;
+    dispatch({ type: 'UPDATE_USER', user });
+  };
+};
 
 const store = createStore(reducer, applyMiddleware(logger, thunk));
 
-export { deleteThing, updateThing, createThing, createUser, deleteUser, removeThingFromUser };
+export { deleteThing, updateThing, createThing, createUser, deleteUser, removeThingFromUser, updateUser };
 
 export default store;
 

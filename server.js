@@ -2,6 +2,7 @@ const { conn, User, Thing } = require('./db');
 const express = require('express');
 const app = express();
 const path = require('path');
+const { default: axios } = require('axios');
 
 app.use(express.json());
 app.use('/dist', express.static('dist'));
@@ -73,12 +74,25 @@ app.get('/api/things', async(req, res, next)=> {
 
 app.get('/api/users', async(req, res, next)=> {
   try {
-    res.send(await User.findAll());
+    res.send(await User.findAll({
+      order: [['name']]
+    }));
   }
   catch(ex){
     next(ex);
   }
 });
+
+app.put('/api/users/:id', async(req, res, next) => {
+  try {
+    const user = await User.findByPk(req.params.id);
+    await user.update(req.body);
+    res.send(user);
+  }
+  catch(e){
+    next(e);
+  }
+})
 
 app.use((err, req, res, next)=> {
   console.log(err);

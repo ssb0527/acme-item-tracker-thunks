@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
-import { createUser, deleteUser, removeThingFromUser } from './store';
+import { createUser, deleteUser, removeThingFromUser, updateUser } from './store';
 
 
-const Users = ({ users, createUser, deleteUser, things, removeThingFromUser })=> {
+const Users = ({ users, createUser, deleteUser, things, removeThingFromUser, increment })=> {
   return (
     <div>
       <h1>Users</h1>
@@ -15,6 +15,8 @@ const Users = ({ users, createUser, deleteUser, things, removeThingFromUser })=>
             return (
               <li key={ user.id }>
                 { user.name } ({ user.ranking })
+                <button onClick={()=>increment(user, -1)}>-</button>
+                <button onClick={()=>increment(user, +1)}>+</button>
                 <button onClick={ ()=> deleteUser(user)}>x</button>
                 <ul>
                 {
@@ -58,6 +60,10 @@ const mapDispatch = (dispatch)=> {
     deleteUser: (user)=> {
       dispatch(deleteUser(user));
     },
+    increment: (user, dir)=> {
+      user = {...user, ranking: user.ranking + dir};
+      dispatch(updateUser(user));
+    }
   };
 }
 export default connect(mapStateToProps, mapDispatch)(Users);
