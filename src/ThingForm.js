@@ -5,7 +5,7 @@ import { createThing } from './store';
 const ThingForm = ({ createThing })=> {
   return (
     <div>
-      <button onClick={ createThing }>+</button>
+      <button onClick={ createThing }>Create 📋</button>
     </div>
   );
 };

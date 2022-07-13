@@ -7,6 +7,7 @@ const Things = ({ things, users, deleteThing, increment, updateThing })=> {
   return (
     <div>
       <h1>Things</h1>
+      <ThingForm />
       <ul>
         {
           things.map( thing => {
@@ -36,7 +37,6 @@ const Things = ({ things, users, deleteThing, increment, updateThing })=> {
           })
         }
       </ul>
-      <ThingForm />
     </div>
   );
 };

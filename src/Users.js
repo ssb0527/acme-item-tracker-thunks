@@ -8,7 +8,7 @@ const Users = ({ users, createUser, deleteUser, things, removeThingFromUser, inc
   return (
     <div>
       <h1>Users</h1>
-      <button onClick={ createUser }>+</button>
+      <button onClick={ createUser }>Create 👤</button>
       <ul>
         {
           users.map( user => {
